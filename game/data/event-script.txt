@@ -1,0 +1,36 @@
+<f+ - set flag x
+<f- - clear flag x
+<fj - jump to event ptx if flag x is set (x:ptx)
+<i+ - give item x
+<i- - remove item x
+<ij - jump to event ptx if item x is in the player's inventory (x:ptx)
+<pc - modify map(?)
+<cm - create npc (?)
+<se - play sound effect x
+<wa - wait x ticks
+<le - quake 2
+<fo - fade out
+<fi - fade in
+<ma - fade mask
+<nm - fade unmask
+<yn - yes/no dialogue
+<mc - close message box
+<ds - save record (Ika.rec)
+<dl - load record (Ika.rec)
+<nl - load npc
+<ce - unload npc
+<e+ - restore ikachan health
+<ge - escape in ship
+<re - restart game
+<ec - add 1 to "people carried" count
+<ej - if carrying x people, jump to event ptx (x:ptx)
+<ft - heal ikachan and change frame focus
+<bo - start iron head fight
+<pp - resume music
+<ps - stop music
+<pf - fade music
+<pd - change music
+<ph - set music to lower volume
+<te - <NOD but in ikachan
+<en - end script
+<ex - exit the game
