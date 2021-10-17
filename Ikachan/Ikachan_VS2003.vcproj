@@ -169,6 +169,9 @@
 				RelativePath="Player.cpp">
 			</File>
 			<File
+				RelativePath="PlayerTwo.cpp">
+			</File>
+			<File
 				RelativePath="Sound.cpp">
 			</File>
 			<File
@@ -229,6 +232,9 @@
 			</File>
 			<File
 				RelativePath="Player.h">
+			</File>
+			<File
+				RelativePath="PlayerTwo.h">
 			</File>
 			<File
 				RelativePath="Sound.h">

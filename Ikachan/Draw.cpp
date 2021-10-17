@@ -107,6 +107,13 @@ BOOL StartDirectDraw(HWND hWnd, int wndSize, int FramerateSpeed)
 			fullscreen = FALSE;
 			lpDD->SetCooperativeLevel(hWnd, DDSCL_NORMAL);
 			break;
+		case WS_FUCKYOU:
+			mag = 2;
+			fullscreen = TRUE;
+			lpDD->SetCooperativeLevel(hWnd, DDSCL_FULLSCREEN | DDSCL_EXCLUSIVE);
+			lpDD->SetDisplayMode(WINDOW_WIDTH * mag, WINDOW_HEIGHT * mag, 16);
+			break;		
+		break;
 	}
 
 	//Set framerate speed

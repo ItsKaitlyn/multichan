@@ -1,9 +1,10 @@
 #pragma once
 #include "Map.h"
 #include "Effect.h"
+#include "Player.h"
 #include <windows.h>
 
-struct MYCHAR
+struct TWOCHAR
 {
 	BOOLEAN cond; //x0 x420DD8
 	BOOLEAN dead; //x1 x420DD9
@@ -30,16 +31,14 @@ struct MYCHAR
 	char carry; //x29 x420EE1
 };
 
-extern MYCHAR gMC;
+extern TWOCHAR tMC;
 
-#define MAX_LEVEL (6)
+extern short tMycLife[MAX_LEVEL + 1];
+extern short tMycExp[MAX_LEVEL + 1];
 
-extern short gMycLife[MAX_LEVEL + 1];
-extern short gMycExp[MAX_LEVEL + 1];
-
-void DamageMyChar(CARET_SPAWNER *caret_spawner, char damage);
-void HitMyCharMap(MAP *map, CARET_SPAWNER *caret_spawner);
-void PutMyChar(FRAME *frame);
-void PutMyStatus();
-void ActMyChar(CARET *caret, CARET_SPAWNER *caret_spawner);
-void InitMyChar();
+void DamageTwoChar(CARET_SPAWNER *caret_spawner, char damage);
+void HitTwoCharMap(MAP *map, CARET_SPAWNER *caret_spawner);
+void PutTwoChar(FRAME *frame);
+void PutTwoStatus();
+void ActTwoChar(CARET *caret, CARET_SPAWNER *caret_spawner);
+void InitTwoChar();

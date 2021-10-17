@@ -1,6 +1,7 @@
 #include "Boss.h"
 #include "Draw.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "Sound.h"
 
 BOSS gBoss = { 0 };
@@ -199,6 +200,15 @@ void ActBoss(CARET_SPAWNER *caret_spawner)
 				gBoss.ym -= acc_y;
 			if (gBoss.y < gMC.y)
 				gBoss.ym += acc_y;
+
+			if (gBoss.x > tMC.x)
+				gBoss.xm -= acc_x;
+			if (gBoss.x < tMC.x)
+				gBoss.xm += acc_x;
+			if (gBoss.y > tMC.y)
+				gBoss.ym -= acc_y;
+			if (gBoss.y < tMC.y)
+				gBoss.ym += acc_y;
 			
 			//Charge towards Ikachan after some time
 			if (gBoss.act_wait > 0)
@@ -209,6 +219,16 @@ void ActBoss(CARET_SPAWNER *caret_spawner)
 				gBoss.ym = 0;
 				gBoss.act_no = 2;
 				if ((gBoss.x + 0x6000) <= gMC.x)
+					gBoss.xm = 0x4000;
+				else
+					gBoss.xm = -0x4000;
+			}
+			else if (gBoss.act_wait <= 0 && gBoss.y < tMC.y && (gBoss.y + 0x2000) > tMC.y)
+			{
+				gBoss.act_wait = 400;
+				gBoss.ym = 0;
+				gBoss.act_no = 2;
+				if ((gBoss.x + 0x6000) <= tMC.x)
 					gBoss.xm = 0x4000;
 				else
 					gBoss.xm = -0x4000;

@@ -4,6 +4,7 @@
 #include "EventScript.h"
 #include "Map.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "Sound.h"
 #include <stdio.h>
 
@@ -272,11 +273,24 @@ void ActNpChar00(NPCHAR *npc)
 			if (npc->act_wait > 0)
 				--npc->act_wait;
 			
+			// Ikachan puff
 			if (npc->act_wait == 0 && (gMC.equip & 4) == 0 &&
 				(npc->x - 0xA000) < gMC.x &&
 				(npc->x + 0xA000) > gMC.x &&
 				(npc->y - 0xA000) < gMC.y &&
 				(npc->y + 0xA000) > gMC.y)
+			{
+				if (npc->type == 2)
+					npc->act_no = 1;
+				npc->act_wait = 300;
+			}
+
+			// Twochan puff
+			if (npc->act_wait == 0 && (gMC.equip & 4) == 0 &&
+				(npc->x - 0xA000) < tMC.x &&
+				(npc->x + 0xA000) > tMC.x &&
+				(npc->y - 0xA000) < tMC.y &&
+				(npc->y + 0xA000) > tMC.y)
 			{
 				if (npc->type == 2)
 					npc->act_no = 1;
@@ -288,6 +302,12 @@ void ActNpChar00(NPCHAR *npc)
 			if (npc->x > gMC.x)
 				npc->direct = 0;
 			if (npc->x < gMC.x)
+				npc->direct = 1;
+
+			//Face towards Twochan
+			if (npc->x > tMC.x)
+				npc->direct = 0;
+			if (npc->x < tMC.x)
 				npc->direct = 1;
 			
 			//Animate
@@ -322,6 +342,12 @@ void ActNpChar01(NPCHAR *npc)
 	if (npc->x < gMC.x)
 		npc->direct = 1;
 	if (npc->x > gMC.x)
+		npc->direct = 0;
+
+	//Face towards Twochan
+	if (npc->x < tMC.x)
+		npc->direct = 1;
+	if (npc->x > tMC.x)
 		npc->direct = 0;
 	
 	//Animate
@@ -443,6 +469,15 @@ void ActNpChar03(NPCHAR *npc)
 					npc->ani_no = 0;
 			}
 		}
+		else if ((npc->x - 0x8000) >= tMC.x || (npc->x + 0x8000) <= tMC.x || (npc->y - 0x8000) >= tMC.y || npc->y <= tMC.y)
+		{
+			if (++npc->ani_wait > 5)
+			{
+				npc->ani_wait = 0;
+				if (--npc->ani_no < 0)
+					npc->ani_no = 0;
+			}
+		}
 		else if (++npc->ani_wait > 2)
 		{
 			npc->ani_wait = 0;
@@ -463,6 +498,16 @@ void ActNpChar04(NPCHAR *npc)
 		npc->ym -= 16;
 	if (npc->y < gMC.y)
 		npc->ym += 16;
+
+	//Move towards Twochan
+	if (npc->x > tMC.x)
+		npc->xm -= 24;
+	if (npc->x < tMC.x)
+		npc->xm += 24;
+	if (npc->y > tMC.y)
+		npc->ym -= 16;
+	if (npc->y < tMC.y)
+		npc->ym += 16;
 	
 	//Face towards Ikachan
 	if (npc->x > gMC.x)
@@ -472,6 +517,15 @@ void ActNpChar04(NPCHAR *npc)
 	if ((npc->x - 0x8000) < gMC.x && (npc->x + 0x8000) > gMC.x && (npc->y - 0x8000) < gMC.y && (npc->y + 0x8000) > gMC.y)
 		npc->direct = 2;
 	npc->act_no = (npc->y + 0x2000) > gMC.y;
+
+	//Face towards Twochan
+	if (npc->x > tMC.x)
+		npc->direct = 0;
+	if (npc->x < tMC.x)
+		npc->direct = 1;
+	if ((npc->x - 0x8000) < tMC.x && (npc->x + 0x8000) > tMC.x && (npc->y - 0x8000) < tMC.y && (npc->y + 0x8000) > tMC.y)
+		npc->direct = 2;
+	npc->act_no = (npc->y + 0x2000) > tMC.y;
 	
 	//Animate
 	if (++npc->ani_wait > 8)

@@ -8,12 +8,14 @@
 #include "Opening.h"
 #include "Map.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "NpChar.h"
 #include "PiyoPiyo.h"
 #include "Editor.h"
 #include "Boss.h"
 #include "Effect.h"
 #include <stdio.h>
+#include <ddraw.h>
 
 DWORD gKeyTrg, gMouseTrg, gMouseTrg2;
 
@@ -134,8 +136,8 @@ BOOL Game(HWND hWnd)
 	MakeSurface_File("data\\Bmp\\Fade.bmp", SURFACE_ID_FADE);
 	
 	//Start game (start in opening)
-	// char mode = GAMEMODE_OPENING;
-	char mode = GAMEMODE_GAMEPLAY;
+	char mode = GAMEMODE_OPENING;
+	// char mode = GAMEMODE_GAMEPLAY;
 	InitOpening(&opening);
 	char next_mode = mode;
 	
@@ -210,7 +212,9 @@ BOOL Game(HWND hWnd)
 	
 	//Prepare for intro
 	if (gKey & KEY_S)
+	{
 		mode = GAMEMODE_EDITOR;
+	}
 	if (mode == GAMEMODE_INTRO)
 	{
 		//Play intro music
@@ -292,7 +296,7 @@ BOOL Game(HWND hWnd)
 			// Why?
 
 			if (gKeyTrg & KEY_X_PLAYERTWO)
-				tMC.x += 0x200; //Move Ikachan right half a pixel when X is pressed (not sure why)
+				tMC.x += 0x200; //Move Twochan right half a pixel when X is pressed (not sure why)
 			
 			//Draw background
 			PutBack(&frame);
@@ -302,6 +306,8 @@ BOOL Game(HWND hWnd)
 			if (!event_scr.msg_box)
 				ActBoss(caret_spawner);
 			if (gMC.unit != 2)
+				PutBoss(&frame);
+			else if (tMC.unit != 2)
 				PutBoss(&frame);
 			HitMyCharBoss(&event_scr, caret_spawner);
 			HitTwoCharBoss(&event_scr, caret_spawner);

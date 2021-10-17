@@ -4,6 +4,7 @@
 #include "Sound.h"
 #include "Flags.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "Game.h"
 #include "Editor.h"
 #include "Boss.h"
@@ -297,6 +298,13 @@ BOOL SaveRecord(ITEMS *items, MAP *map, NPCHAR *npc)
 	fwrite(&gMC.exp, 2, 1, fp);
 	fwrite(&gMC.level, 1, 1, fp);
 	fwrite(&gMC.equip, 1, 1, fp);
+	//Write Twochan's state
+	fwrite(&tMC.x, 4, 1, fp);
+	fwrite(&tMC.y, 4, 1, fp);
+	fwrite(&tMC.life, 2, 1, fp);
+	fwrite(&tMC.exp, 2, 1, fp);
+	fwrite(&tMC.level, 1, 1, fp);
+	fwrite(&tMC.equip, 1, 1, fp);
 	
 	//Write flags
 	fwrite(gFlagNPC, 1, FLAG_BYTES, fp);
@@ -348,6 +356,13 @@ BOOL LoadRecord(ITEMS *items, MAP *map, NPCHAR *npc)
 	fread(&gMC.exp, 2, 1, fp);
 	fread(&gMC.level, 1, 1, fp);
 	fread(&gMC.equip, 1, 1, fp);
+	//Read Twochan's state
+	fread(&tMC.x, 4, 1, fp);
+	fread(&tMC.y, 4, 1, fp);
+	fread(&tMC.life, 2, 1, fp);
+	fread(&tMC.exp, 2, 1, fp);
+	fread(&tMC.level, 1, 1, fp);
+	fread(&tMC.equip, 1, 1, fp);
 	
 	//Read flags
 	fread(gFlagNPC, 1, FLAG_BYTES, fp);
@@ -905,6 +920,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 		{
 			//Restore Ikachan's health
 			gMC.life = gMycLife[gMC.level];
+			tMC.life = tMycLife[tMC.level];
 			ptx->p_read += 3;
 			PlaySoundObject(SOUND_ID_LIFEUP, SOUND_MODE_PLAY);
 			return 0;
@@ -914,6 +930,9 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			//Escape in ship
 			gMC.unit = 2;
 			gMC.direct = 2;
+			//Escape in ship (twochan)
+			tMC.unit = 2;
+			tMC.direct = 2;
 			fade->mode = 0;
 			ptx->p_read += 3;
 			PlaySoundObject(SOUND_ID_LIFEUP, SOUND_MODE_PLAY);
@@ -932,6 +951,17 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			gMC.ym = 0;
 			gMC.xm = 0;
 			gMC.life = gMycLife[gMC.level];
+
+			tMC.carry = 0;
+			tMC.cond = TRUE;
+			tMC.unit = 0;
+			tMC.ani_no = 0;
+			tMC.ani_wait = 0;
+			tMC.shock = 0;
+			tMC.no_event = 100;
+			tMC.ym = 0;
+			tMC.xm = 0;
+			tMC.life = tMycLife[tMC.level];
 			ptx->p_read += 3;
 			return 0;
 		}
@@ -965,6 +995,8 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 		{
 			//Heal Ikachan and change frame focus
 			gMC.life = gMycLife[gMC.level];
+			//Heal Twochan and change frame focus
+			tMC.life = tMycLife[tMC.level];
 			ptx->p_read += 3;
 			frame->mode = (char)GetEventScriptNo(ptx);
 			ptx->p_read++;

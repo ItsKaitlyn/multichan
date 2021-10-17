@@ -1,6 +1,7 @@
 #include "Map.h"
 #include "Draw.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "Boss.h"
 #include <stdio.h>
 #include <math.h>
@@ -237,6 +238,33 @@ void MoveFrame(FRAME *frame, NPCHAR *npc, MAP *map)
         frame->y = 0;
     if (frame->y > ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14))
         frame->y = ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14);
+
+	// Code doesn't work, but should keep players from going off screen(?)
+/*
+	if (gMC.x > ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14))
+	{
+		gMC.x = tMC.x;
+		gMC.y = tMC.y;
+	}
+
+	if (gMC.y > ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14))
+	{
+		gMC.x = tMC.x;
+		gMC.y = tMC.y;
+	}
+
+	if (tMC.x > ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14))
+	{
+		tMC.x = gMC.x;
+		tMC.y = gMC.y;
+	}
+
+	if (tMC.y > ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14))
+	{
+		tMC.x = gMC.x;
+		tMC.y = gMC.y;
+	}
+*/
 }
 
 void MoveFrameEditor(FRAME *frame, MAP *map)

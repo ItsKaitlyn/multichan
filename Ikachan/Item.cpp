@@ -1,6 +1,7 @@
 #include "Item.h"
 #include "Draw.h"
 #include "Player.h"
+#include "PlayerTwo.h"
 #include "EventScript.h"
 #include "Sound.h"
 #include "System.h"
@@ -95,6 +96,7 @@ BOOL AddItemData(ITEMS *items, char code)
 				//Fill item slot and equip
 				items->code[i] = code;
 				gMC.equip |= item_equip[code];
+				tMC.equip |= item_equip[code];
 				return TRUE;
 			}
 		}
@@ -115,6 +117,7 @@ BOOL SubItemData(ITEMS *items, char code)
 				//Remove item from inventory and dequip
 				items->code[i] = 0;
 				gMC.equip &= ~item_equip[code];
+				tMC.equip &= ~item_equip[code];
 				return TRUE;
 			}
 		}

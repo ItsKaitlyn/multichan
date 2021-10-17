@@ -38,6 +38,7 @@ enum WND_SIZE
 	WS_960x540,
 	WS_1440x810,
 	WS_1920x1080,
+	WS_FUCKYOU,
 };
 extern WND_SIZE gWndSize;
 
