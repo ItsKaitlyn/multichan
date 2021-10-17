@@ -4,6 +4,8 @@
 
 #include "Draw.h"
 #include "Game.h"
+#include "Gamepad.h"
+#include "KeyControl.h"
 #include "System.h"
 
 int Call_Escape(HWND hWnd)

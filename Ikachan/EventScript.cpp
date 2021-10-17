@@ -6,6 +6,8 @@
 #include "Player.h"
 #include "PlayerTwo.h"
 #include "Game.h"
+#include "Gamepad.h"
+#include "KeyControl.h"
 #include "Editor.h"
 #include "Boss.h"
 #include <stdio.h>
@@ -500,12 +502,12 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			return 0;
 		case 5:
 			//Wait until Z is pressed before resuming execution
-			if (gKeyTrg & KEY_Z)
+			if (gKeyTrg & gKeyOk)
 				ptx->mode = 4;
 			return 0;
 		case 6:
 			//Wait until Z is pressed before resuming execution
-			if (gKeyTrg & KEY_Z)
+			if (gKeyTrg & gKeyOk)
 			{
 				ptx->wait = 0;
 				ptx->line = 0;
@@ -519,7 +521,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			return 0;
 		case 7:
 			//Wait until Z is pressed before ending the script
-			if (!(gKeyTrg & KEY_Z))
+			if (!(gKeyTrg & gKeyOk))
 				return 0;
 			ptx->mode = 0;
 			ptx->msg_box = 0;
@@ -536,19 +538,19 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			PutBitmap3(&grcFull, (WINDOW_WIDTH / 2) + 24, (WINDOW_HEIGHT / 2) - 20, &rcYNNo, SURFACE_ID_YESNO);
 			
 			//Choose Yes/No
-			if (gKeyTrg & KEY_LEFT)
+			if (gKeyTrg & gKeyLeft)
 			{
 				ptx->select = 0;
 				PlaySoundObject(SOUND_ID_READY, 1);
 			}
-			if (gKeyTrg & KEY_RIGHT)
+			if (gKeyTrg & gKeyRight)
 			{
 				ptx->select = 1;
 				PlaySoundObject(SOUND_ID_READY, 1);
 			}
 			
 			//Select once Z is pressed
-			if (gKeyTrg & KEY_Z)
+			if (gKeyTrg & gKeyOk)
 			{
 				PlaySoundObject(SOUND_ID_DASH, 1);
 				if (ptx->select)
@@ -591,7 +593,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			//Type wait
 			ptx->msg_box = 1;
 			ptx->wait = ptx->x1C;
-			if (gKey & KEY_Z)
+			if (gKey & gKeyOk)
 				ptx->wait = 0;
 			
 			//Type character
@@ -611,7 +613,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			//Type wait
 			ptx->msg_box = 1;
 			ptx->wait = ptx->x1C;
-			if (gKey & KEY_Z)
+			if (gKey & gKeyOk)
 				ptx->wait = 0;
 			
 			//Type character
@@ -631,7 +633,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 			//Type wait
 			ptx->msg_box = 1;
 			ptx->wait = ptx->x1C;
-			if (gKey & KEY_Z)
+			if (gKey & gKeyOk)
 				ptx->wait = 0;
 			
 			//Type character
@@ -659,7 +661,7 @@ char EventScriptProc(EVENT_SCR *ptx, ITEMS *items, NPCHAR *npc, MAP *map, PIYOPI
 				//Type wait
 				ptx->msg_box = 1;
 				ptx->wait = ptx->x1C;
-				if (gKey & KEY_Z)
+				if (gKey & gKeyOk)
 					ptx->wait = 0;
 				
 				//Type character

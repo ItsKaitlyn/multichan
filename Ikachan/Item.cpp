@@ -6,6 +6,8 @@
 #include "Sound.h"
 #include "System.h"
 #include <string.h>
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 BYTE item_equip[12] = { 0x00, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x02, 0x00, 0x00, 0x08 };
 
@@ -51,7 +53,7 @@ void MoveItem(ITEMS *items, EVENT_SCR *event_scr)
 		if (--items->selected_item < 0)
 			items->selected_item = MAX_ITEMS - 1;
 	}
-	if (gKeyTrg & KEY_RIGHT)
+	if (gKeyTrg & gKeyRight)
 	{
 		PlaySoundObject(SOUND_ID_DASH, SOUND_MODE_PLAY);
 		if (++items->selected_item >= MAX_ITEMS)
@@ -59,7 +61,7 @@ void MoveItem(ITEMS *items, EVENT_SCR *event_scr)
 	}
 	
 	//Display item description when Z is pressed
-	if (gKeyTrg & KEY_Z)
+	if (gKeyTrg & gKeyOk)
 	{
 		PlaySoundObject(SOUND_ID_DASH, SOUND_MODE_PLAY);
 		char code = items->code[items->selected_item];

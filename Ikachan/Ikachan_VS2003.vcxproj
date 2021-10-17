@@ -62,7 +62,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ddraw.lib;dsound.lib;imm32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ddraw.lib;dinput8.lib;dsound.lib;ShLwApi.Lib;imm32.lib;version.lib;WinMM.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Ikachan.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)Ikachan.pdb</ProgramDatabaseFile>
@@ -81,7 +81,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ddraw.lib;dsound.lib;imm32.lib;version.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ddraw.lib;dinput8.lib;dsound.lib;ShLwApi.Lib;imm32.lib;version.lib;WinMM.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)Ikachan.exe</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -100,8 +100,10 @@
     <ClCompile Include="EventScript.cpp" />
     <ClCompile Include="Flags.cpp" />
     <ClCompile Include="Game.cpp" />
+	<ClCompile Include="Gamepad.cpp" />
     <ClCompile Include="Generic.cpp" />
     <ClCompile Include="Item.cpp" />
+	<ClCompile Include="KeyControl.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="NpChar.cpp" />
     <ClCompile Include="Opening.cpp" />
@@ -122,8 +124,10 @@
     <ClInclude Include="EventScript.h" />
     <ClInclude Include="Flags.h" />
     <ClInclude Include="Game.h" />
+	<ClInclude Include="Gamepad.h" />
     <ClInclude Include="Generic.h" />
     <ClInclude Include="Item.h" />
+	<ClInclude Include="KeyControl.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="NpChar.h" />
     <ClInclude Include="Opening.h" />

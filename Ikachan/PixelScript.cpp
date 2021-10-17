@@ -1,6 +1,8 @@
 #include "PixelScript.h"
 #include "EventScript.h"
 #include <stdio.h>
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 #define IS_COMMAND1(c1) (ptx->data[ptx->p_read] == '<' && ptx->data[ptx->p_read + 1] == (c1))
 #define IS_COMMAND2(c1, c2) (ptx->data[ptx->p_read] == '<' && ptx->data[ptx->p_read + 1] == (c1) && ptx->data[ptx->p_read + 2] == (c2))
@@ -76,7 +78,7 @@ int PixelScriptProc(PIX_SCR *ptx, PIYOPIYO_CONTROL *piyocont, BOOL ending)
 
 			//Scroll line
 			ptx->ypos_line[i] -= 2;
-			if ((gKey & KEY_SPACE) || (gKey & KEY_Z))
+			if ((gKey & KEY_SPACE) || (gKey & gKeyOk))
 				ptx->ypos_line[i] -= 6;
 
 			//Check if line's scrolled over the top of the screen

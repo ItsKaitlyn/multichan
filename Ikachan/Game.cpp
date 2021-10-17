@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "Gamepad.h"
+#include "KeyControl.h"
 #include "Generic.h"
 #include "Item.h"
 #include "Draw.h"
@@ -16,8 +18,6 @@
 #include "Effect.h"
 #include <stdio.h>
 #include <ddraw.h>
-
-DWORD gKeyTrg, gMouseTrg, gMouseTrg2;
 
 RECT grcLoading = { 0, 0, 32, 8 };
 
@@ -156,7 +156,7 @@ BOOL Game(HWND hWnd)
 		CortBox(&grcFull, 0x000000);
 		
 		//Run opening
-		if (gKeyTrg & KEY_Z)
+		if (gKeyTrg & gKeyOk)
 			fade.mode = FADE_MODE_FADEOUT;
 		PutOpening(&opening);
 		if (ProcFade(&fade, &frame, caret_spawner) == TRUE)
@@ -290,12 +290,12 @@ BOOL Game(HWND hWnd)
 			
 			//Update frame position
 			MoveFrame(&frame, npc, &map);
-			if (gKeyTrg & KEY_X)
+			if (gKeyTrg & gKeyMove)
 				gMC.x += 0x200; //Move Ikachan right half a pixel when X is pressed (not sure why)
 
 			// Why?
 
-			if (gKeyTrg & KEY_X_PLAYERTWO)
+			if (gKeyTrg & tKeyMove)
 				tMC.x += 0x200; //Move Twochan right half a pixel when X is pressed (not sure why)
 			
 			//Draw background

@@ -5,6 +5,8 @@
 #include "Boss.h"
 #include <stdio.h>
 #include <math.h>
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 BOOL LoadMapData(const char* path, MAP *map)
 {
@@ -272,30 +274,30 @@ void MoveFrameEditor(FRAME *frame, MAP *map)
 	static int holdt;
 	
 	//Shift frame when direction pressed
-	if (gKeyTrg & KEY_LEFT)
+	if (gKeyTrg & gKeyLeft)
 		frame->x -= 0x1000;
-	if (gKeyTrg & KEY_RIGHT)
+	if (gKeyTrg & gKeyRight)
 		frame->x += 0x1000;
-	if (gKeyTrg & KEY_UP)
+	if (gKeyTrg & gKeyUp)
 		frame->y -= 0x1000;
-	if (gKeyTrg & KEY_DOWN)
+	if (gKeyTrg & gKeyDown)
 		frame->y += 0x1000;
 
 	//Move frame while direction held for 20 frames
-	if (gKey & (KEY_LEFT | KEY_UP | KEY_RIGHT | KEY_DOWN))
+	if (gKey & (gKeyLeft | gKeyUp | gKeyRight | gKeyDown))
 	{
 		//Wait 20 frames
 		if (++holdt >= 20)
 		{
 			//Cap timer and move
 			holdt = 20;
-			if (gKey & KEY_LEFT)
+			if (gKey & gKeyLeft)
 				frame->x -= 0x1000;
-			if (gKey & KEY_RIGHT)
+			if (gKey & gKeyRight)
 				frame->x += 0x1000;
-			if (gKey & KEY_UP)
+			if (gKey & gKeyUp)
 				frame->y -= 0x1000;
-			if (gKey & KEY_DOWN)
+			if (gKey & gKeyDown)
 				frame->y += 0x1000;
 		}
 	}

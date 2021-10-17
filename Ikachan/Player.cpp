@@ -4,6 +4,8 @@
 #include "System.h"
 #include "Sound.h"
 #include "EventScript.h"
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 MYCHAR gMC;
 
@@ -531,13 +533,13 @@ void ActMyChar_Normal(CARET *caret, CARET_SPAWNER *caret_spawner)
 {
 	//Get direction
 	gMC.direct = 2;
-	if (gKey & KEY_LEFT)
+	if (gKey & gKeyLeft)
 		gMC.direct = 0;
-	if (gKey & KEY_RIGHT)
+	if (gKey & gKeyRight)
 		gMC.direct = 1;
 
 	//Swim
-	if ((gKeyTrg & KEY_Z) && gMC.swim_wait == 0)
+	if ((gKeyTrg & gKeySwim) && gMC.swim_wait == 0)
 	{
 		//Swim sound and bubble
 		int caret_i = FindCaret(caret);
@@ -580,7 +582,7 @@ void ActMyChar_Normal(CARET *caret, CARET_SPAWNER *caret_spawner)
 	}
 
 	//Dash
-	if ((gKey & KEY_Z) && (gMC.equip & 2))
+	if ((gKey & gKeySwim) && (gMC.equip & 2))
 	{
 		//Play charged sound
 		if (gMC.dash_wait == 31)

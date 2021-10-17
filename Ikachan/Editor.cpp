@@ -4,6 +4,8 @@
 #include "EventScript.h"
 #include "Sound.h"
 #include <stdio.h>
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 BOOLEAN gEditorMode;
 short gEditorNPC;
@@ -99,7 +101,7 @@ void EditorProc(NPCHAR *npc)
 	switch (gEditorMode)
 	{
 		case FALSE:
-			if (gMouseTrg2 & MOUSE_LEFT)
+			if (gMouseTrg2 & lClick)
 			{
 				if (gEditorCursor_ScreenPos.x <= 8 ||
 					gEditorCursor_ScreenPos.x >= 224 ||
@@ -166,7 +168,7 @@ void EditorProc(NPCHAR *npc)
 					}
 				}
 			}
-			else if (gMouseTrg2 & MOUSE_RIGHT)
+			else if (gMouseTrg2 & rClick)
 			{
 				if (gEditorCursor_ScreenPos.x <= 8 ||
 					gEditorCursor_ScreenPos.x >= 224 ||
@@ -240,7 +242,7 @@ void EditorProc(NPCHAR *npc)
 			//Drag target
 			npc[gEditorNPC].tgt_x = gEditorCursor_Tile.x << 14;
 			npc[gEditorNPC].tgt_y = gEditorCursor_Tile.y << 14;
-			if ((gMouse & MOUSE_LEFT) == 0)
+			if ((gMouse & lClick) == 0)
 			{
 				PlaySoundObject(SOUND_ID_GO, SOUND_MODE_PLAY);
 				gEditorMode = 0;

@@ -4,6 +4,8 @@
 #include "System.h"
 #include "Sound.h"
 #include "EventScript.h"
+#include "Gamepad.h"
+#include "KeyControl.h"
 
 TWOCHAR tMC;
 
@@ -531,13 +533,13 @@ void ActTwoChar_Normal(CARET *caret, CARET_SPAWNER *caret_spawner)
 {
 	//Get direction
 	tMC.direct = 2;
-	if (gKey & KEY_LEFT_PLAYERTWO)
+	if (gKey & tKeyLeft)
 		tMC.direct = 0;
-	if (gKey & KEY_RIGHT_PLAYERTWO)
+	if (gKey & tKeyRight)
 		tMC.direct = 1;
 
 	//Swim
-	if ((gKeyTrg & KEY_Z_PLAYERTWO) && tMC.swim_wait == 0)
+	if ((gKeyTrg & tKeySwim) && tMC.swim_wait == 0)
 	{
 		//Swim sound and bubble
 		int caret_i = FindCaret(caret);
@@ -580,7 +582,7 @@ void ActTwoChar_Normal(CARET *caret, CARET_SPAWNER *caret_spawner)
 	}
 
 	//Dash
-	if ((gKey & KEY_Z_PLAYERTWO) && (tMC.equip & 2))
+	if ((gKey & tKeySwim) && (tMC.equip & 2))
 	{
 		//Play charged sound
 		if (tMC.dash_wait == 31)
