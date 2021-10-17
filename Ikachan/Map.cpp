@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Boss.h"
 #include <stdio.h>
+#include <math.h>
 
 BOOL LoadMapData(const char* path, MAP *map)
 {
@@ -193,43 +194,49 @@ void PutMapVector(MAP *map, int fx, int fy)
 void MoveFrame(FRAME *frame, NPCHAR *npc, MAP *map)
 {
 	//Get target position
-	int tx, ty;
+    int tx, ty, dist_x, dist_y;
 
-	switch (frame->mode)
-	{
-		case FRAME_MODE_MYCHAR:
-			tx = gMC.x;
-			ty = gMC.y;
-			break;
-		case FRAME_MODE_NPCHAR:
-			tx = npc[frame->npc].x;
-			ty = npc[frame->npc].y;
-			break;
-		case FRAME_MODE_BOSS:
-			tx = gBoss.x;
-			ty = gBoss.y;
-			break;
-	}
-	
-	//Move frame towards target
+    switch (frame->mode)
+    {
+        case FRAME_MODE_MYCHAR:
+            tx = dist_x = ( (gMC.x + tMC.x) / 2 );
+            ty = dist_y = ( (gMC.y + tMC.y) / 2 );
+            break;
+        case FRAME_MODE_NPCHAR:
+            tx = npc[frame->npc].x;
+            ty = npc[frame->npc].y;
+            break;
+        case FRAME_MODE_BOSS:
+            tx = gBoss.x;
+            ty = gBoss.y;
+            break;
+    }
+
 	if ((frame->x + (WINDOW_WIDTH << 9) - 0x2000) < tx)
-		frame->x += (tx - (frame->x + (WINDOW_WIDTH << 9) - 0x2000)) / 16;
-	if ((frame->x + (WINDOW_WIDTH << 9) - 0x2000) > tx)
-		frame->x += (tx - (frame->x + (WINDOW_WIDTH << 9) - 0x2000)) / 16;
-	if ((frame->y + (WINDOW_HEIGHT << 9) - 0x2000) < ty)
-		frame->y += (ty - (frame->y + (WINDOW_HEIGHT << 9) - 0x2000)) / 16;
-	if ((frame->y + (WINDOW_HEIGHT << 9) - 0x2000) > ty)
-		frame->y += (ty - (frame->y + (WINDOW_HEIGHT << 9) - 0x2000)) / 16;
+        frame->x += (tx - (frame->x + (WINDOW_WIDTH << 9) - 0x2000)) / 16;
+    if ((frame->x + (WINDOW_WIDTH << 9) - 0x2000) > tx)
+        frame->x += (tx - (frame->x + (WINDOW_WIDTH << 9) - 0x2000)) / 16;
+    if ((frame->y + (WINDOW_HEIGHT << 9) - 0x2000) < ty)
+        frame->y += (ty - (frame->y + (WINDOW_HEIGHT << 9) - 0x2000)) / 16;
+    if ((frame->y + (WINDOW_HEIGHT << 9) - 0x2000) > ty)
+        frame->y += (ty - (frame->y + (WINDOW_HEIGHT << 9) - 0x2000)) / 16;
 
-	//Keep frame in map bounds
-	if (frame->x < 0)
-		frame->x = 0;
-	if (frame->x > ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14))
-		frame->x = ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14);
-	if (frame->y < 0)
-		frame->y = 0;
-	if (frame->y > ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14))
-		frame->y = ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14);
+    //Move frame towards target if not mychar
+    if (frame->mode != FRAME_MODE_MYCHAR)
+	{
+    /*
+	*/
+    }
+    
+    //Keep frame in map bounds
+    if (frame->x < 0)
+        frame->x = 0;
+    if (frame->x > ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14))
+        frame->x = ((map->width - ((WINDOW_WIDTH + 15) / 16)) << 14);
+    if (frame->y < 0)
+        frame->y = 0;
+    if (frame->y > ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14))
+        frame->y = ((map->length - ((WINDOW_HEIGHT + 15) / 16)) << 14);
 }
 
 void MoveFrameEditor(FRAME *frame, MAP *map)

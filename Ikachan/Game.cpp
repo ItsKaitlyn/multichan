@@ -349,6 +349,7 @@ BOOL Game(HWND hWnd)
 			if (gMC.dead)
 			{
 				gMC.dead = 0;
+				tMC.dead = 0;
 				event_scr.mode = 1;
 				event_scr.event_no = 6;
 			}
@@ -356,6 +357,7 @@ BOOL Game(HWND hWnd)
 			//Run death event when Ikachan Two dies
 			if (tMC.dead)
 			{
+				gMC.dead = 0;
 				tMC.dead = 0;
 				event_scr.mode = 1;
 				event_scr.event_no = 6;
