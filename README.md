@@ -57,6 +57,9 @@ https://itskaitlyn.github.io/games/ikachan/
 # GOALS
 
 -4 player multiplayer (?)
+
 -Drop-In multiplayer (you can still play the original game?)
+
 -Built-in better controller support.
+
 -New pause menu (like in CSE2 Enhanced).
